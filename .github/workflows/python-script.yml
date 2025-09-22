@@ -33,6 +33,16 @@ jobs:
         python -m pip install --upgrade pip
         pip install pandas requests
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run script
+    - name: Run script and capture logs
       run: |
-        python geocoding_script.py
+        python geocoding_script.py > geocoding_script.log 2>&1
+    - name: Check for ERROR in logs
+      run: |
+        if grep -q "ERROR" geocoding_script.log; then
+          echo "❌ ERROR found in geocoding_script.log"
+          exit 1
+        else
+          echo "✅ No ERROR found in geocoding_script.log"
+        fi
+
+
