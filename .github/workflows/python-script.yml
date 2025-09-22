@@ -40,6 +40,7 @@ jobs:
       run: |
         if grep -q "ERROR" geocoding_script.log; then
           echo "❌ ERROR found in geocoding_script.log"
+          grep "ERROR" geocoding_script.log
           exit 1
         else
           echo "✅ No ERROR found in geocoding_script.log"
