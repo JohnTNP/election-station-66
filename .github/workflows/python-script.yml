@@ -18,6 +18,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Check for input file
+      run: |
+        if [ ! -f station66_distinct.csv ]; then
+          echo "❌ station66_distinct.csv not found. Skipping script execution."
+          exit 1
+        fi
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
       with:
