@@ -18,11 +18,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Check for input file
+    - name: Rename fallback file if input is missing
       run: |
-        if [ ! -f station66_distinct.csv ]; then
-          echo "❌ station66_distinct.csv not found. Skipping script execution."
-          exit 1
+        if [ ! -f station66_distinct.csv ] && [ -f station66_distinct_clean.csv ]; then
+          echo "⚠️ Input file not found. Renaming fallback file..."
+          mv station66_distinct_clean.csv station66_distinct.csv
         fi
     - name: Set up Python 3.10
       uses: actions/setup-python@v3
