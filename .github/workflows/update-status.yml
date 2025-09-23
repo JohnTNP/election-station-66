@@ -53,12 +53,13 @@ jobs:
     
         # Update README
         awk -v marker="$MARKER" -v output="$OUTPUT" '
-          BEGIN { found=0 }
-          $0 == marker { print; print output; found=1; next }
-          found && NF { next }
+          $0 == marker {
+            print
+            print output
+            next
+          }
           { print }
         ' readme.md > readme.tmp && mv readme.tmp readme.md
-
 
     - name: Commit changes
       run: |
