@@ -39,7 +39,9 @@ jobs:
     
     - name: Generate new content and update README
       run: |
-        MARKER="## 📊 สถานะ"
+        # Define marker and end marker
+        START_MARKER="## 📊 สถานะmaker"
+        END_MARKER="---"
         
         # Define keywords
         KEYWORDS=("เสร็จสิ้นแล้ว:" "เกิดข้อผิดพลาด:" "รอดำเนินการ:")
@@ -50,14 +52,21 @@ jobs:
           LINE=$(grep -F "$kw" geocoding_script.log | tail -n 1)
           OUTPUT="${OUTPUT}${LINE}\n"
         done
-    
-        # Update README
-        awk -v marker="$MARKER" -v output="$OUTPUT" '
-          $0 == marker {
+        
+        # Replace content between markers
+        awk -v start="$START_MARKER" -v end="$END_MARKER" -v output="$OUTPUT" '
+          $0 == start {
             print
             print output
+            skip=1
             next
           }
+          skip && $0 == end {
+            print
+            skip=0
+            next
+          }
+          skip { next }
           { print }
         ' readme.md > readme.tmp && mv readme.tmp readme.md
 
