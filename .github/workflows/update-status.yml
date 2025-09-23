@@ -39,15 +39,26 @@ jobs:
     
     - name: Generate new content and update README
       run: |
-        MARKER="## 📊 สถานะmaker"
-        OUTPUT=$(tail -n 3 geocoding_script.log)
+        MARKER="## 📊 สถานะ"
     
+        # Define keywords
+        KEYWORDS=("- เสร็จสิ้นแล้ว:" "- เกิดข้อผิดพลาด:" "- รอดำเนินการ:")
+    
+        # Extract one line per keyword
+        OUTPUT=""
+        for kw in "${KEYWORDS[@]}"; do
+          LINE=$(grep "$kw" geocoding_script.log | tail -n 1)
+          OUTPUT="${OUTPUT}${LINE}\n"
+        done
+    
+        # Update README
         awk -v marker="$MARKER" -v output="$OUTPUT" '
           BEGIN { found=0 }
           $0 == marker { print; print output; found=1; next }
           found && NF { next }
           { print }
-        ' README.md > README.tmp && mv README.tmp README.md
+        ' readme.md > readme.tmp && mv readme.tmp readme.md
+
 
     - name: Commit changes
       run: |
