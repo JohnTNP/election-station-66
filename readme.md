@@ -91,17 +91,3 @@ provinceNumber,province,registrar_code,registrar,subdis_code,subdistrict,elector
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
