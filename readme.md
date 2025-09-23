@@ -86,8 +86,3 @@ provinceNumber,province,registrar_code,registrar,subdis_code,subdistrict,elector
 ข้อมูลทั้งหมดจะเผยแพร่ภายใต้ [ODC-By License](https://opendatacommons.org/licenses/by/)
 
 ![รูปประกอบ](https://raw.githubusercontent.com/PPLEThai/election-station-66/refs/heads/main/cp-image.png)
-
-
-
-
-
