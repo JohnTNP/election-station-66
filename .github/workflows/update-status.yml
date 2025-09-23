@@ -40,7 +40,7 @@ jobs:
     - name: Generate new content and update README
       run: |
         # Define marker and end marker
-        START_MARKER="## 📊 สถานะmaker"
+        START_MARKER="## 📊 สถานะ"
         END_MARKER="---"
         
         # Define keywords
