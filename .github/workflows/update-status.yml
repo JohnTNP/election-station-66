@@ -40,14 +40,14 @@ jobs:
     - name: Generate new content and update README
       run: |
         MARKER="## 📊 สถานะ"
-    
+        
         # Define keywords
         KEYWORDS=("- เสร็จสิ้นแล้ว:" "- เกิดข้อผิดพลาด:" "- รอดำเนินการ:")
-    
+        
         # Extract one line per keyword
         OUTPUT=""
         for kw in "${KEYWORDS[@]}"; do
-          LINE=$(grep "$kw" geocoding_script.log | tail -n 1)
+          LINE=$(grep -F "$kw" geocoding_script.log | tail -n 1)
           OUTPUT="${OUTPUT}${LINE}\n"
         done
     
@@ -64,6 +64,6 @@ jobs:
       run: |
         git config --global user.name 'github-actions[bot]'
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add README.md
+        git add readme.md
         git diff --cac
 
